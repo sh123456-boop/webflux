@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,8 @@ public class WsChatService {
             wsChatRepository.sleep(sleepMs);
         }
 
-        WsChatMessage saved = wsChatRepository.save(roomId, sender, message);
+        wsChatRepository.save(roomId, sender, message);
+        WsChatMessage saved = new WsChatMessage(0L, roomId, sender, message, LocalDateTime.now());
 
         ObjectNode response = objectMapper.createObjectNode();
         response.put("status", "ok");
