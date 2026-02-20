@@ -1,0 +1,27 @@
+spring:
+  main:
+    web-application-type: reactive
+  datasource:
+    url: jdbc:mysql://database-1.cf4aua8kqfwl.ap-northeast-2.rds.amazonaws.com:3306/bench?useSSL=false&serverTimezone=UTC
+    username: rian123
+    password: gktjdgns1!
+    hikari:
+      maximum-pool-size: ${DB_POOL_MAX:50}
+      minimum-idle: ${DB_POOL_MIN:50}
+      connection-timeout: ${DB_CONN_TIMEOUT_MS:2000}
+
+app:
+  jdbcOffload:
+    threads: ${JDBC_OFFLOAD_THREADS:50}
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: always
